@@ -6,10 +6,10 @@ export function cleanInput(input: string): string[] {
     return words;
 }
 
-export function startREPL(state: State) {
+export async function startREPL(state: State) {
 
     state.readline.prompt()
-    state.readline.on("line", (input) => {
+    state.readline.on("line", async (input) => {
         const words = cleanInput(input);
         const commandName = words[0];
         if (words.length === 0)
@@ -18,7 +18,7 @@ export function startREPL(state: State) {
         const cmd = commands[commandName];
 
         if (cmd)
-            cmd.callback(state);
+            await cmd.callback(state);
         else
             console.log("Unknown command");
         
