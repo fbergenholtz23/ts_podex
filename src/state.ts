@@ -5,6 +5,7 @@ import { PokeAPI } from "./pokeapi.js";
 import { commandMap } from "./command_map.js";
 import { commandMapb } from "./command_mapb.js";
 import { commandExplore } from "./command_explore.js";
+import { commandCatch } from "./command_catch.js";
 
 export type CLICommand = {
     name: string;
@@ -41,17 +42,22 @@ export function initState(): State {
         map: {
             name: "map",
             description: "Map 20 pokemon areas",
-            callback: commandMap
+            callback: commandMap,
         },
         mapb: {
             name: "mapb",
             description: "Map the 20 previous areas",
-            callback: commandMapb
+            callback: commandMapb,
         },
         explore: {
             name: "explore",
             description: "See list of pokemon in given area",
-            callback: commandExplore
+            callback: commandExplore,
+        },
+        catch: {
+            name: "catch",
+            description: "Catch a pokemon",
+            callback: commandCatch,
         }
             // We can add more commands here
     };

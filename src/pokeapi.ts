@@ -4,8 +4,11 @@ export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
 
   #cache: Cache;
+  pokedex: Record<string, Pokemon>;
+
   constructor() {
     this.#cache = new Cache(60000); 
+    this.pokedex = {}
   }
 
   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
@@ -54,6 +57,22 @@ export class PokeAPI {
     
     return result;
   }
+
+  async fetchPokemon(pokemonName: string): Promise<Pokemon> {
+    const url = `${PokeAPI.baseURL}/pokemon/${pokemonName}`
+
+    const data = await fetch(url, {
+      method: "GET",
+      mode: "cors",
+    });
+
+    if (!data.ok)
+      throw new Error("Network Error");
+
+    const result = await data.json();
+
+    return result;
+  }
 }
 
 export type ShallowLocations = {
@@ -69,3 +88,8 @@ export type Location = {
     };
   }[];
 };
+
+export type Pokemon = {
+  name: string;
+  base_experience: number;
+}
