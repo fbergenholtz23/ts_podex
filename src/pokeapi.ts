@@ -4,11 +4,10 @@ export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
 
   #cache: Cache;
-  pokedex: Record<string, Pokemon>;
+  
 
   constructor() {
     this.#cache = new Cache(60000); 
-    this.pokedex = {}
   }
 
   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
@@ -91,5 +90,19 @@ export type Location = {
 
 export type Pokemon = {
   name: string;
+  height: number;
+  weight: number;
   base_experience: number;
+  stats: {
+    base_stat: number,
+    stat: {
+      name: string,
+    }
+  }[];
+  types: {
+    type: {
+      name: string;
+    }
+  }[]
+
 }
