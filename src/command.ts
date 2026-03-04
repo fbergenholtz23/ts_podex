@@ -1,5 +1,7 @@
+import { State } from "./state";
+
 export type CLICommand = {
     name: string;
     description: string;
-    callback: (commands: Record<string, CLICommand>) => void;
+    callback: (state: State, ...args: string[]) => Promise<void>;
 }
